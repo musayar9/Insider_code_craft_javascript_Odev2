@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Longest Collatz Sequence</title>
+  </head>
+  <body>
+    <script>
+      // burada 13 için zinicr oluşturdum
+      const arr = [13];
+      let evenOrOdd = 0;
+      let longestChain = 0;
+      let startNumber = 0;
+
+      for (let i = 0; i < arr.length; i++) {
+        const n = arr[i];
+
+        if (n == 1) {
+          break;
+        }
+        if (n % 2 === 0) {
+          evenOrOdd = n / 2;
+        } else {
+          evenOrOdd = 3 * n + 1;
+        }
+        arr.push(evenOrOdd);
+      }
+      console.log("arr", arr);
+
+      // burada zincir uzunluğunu hesaplayan fonksiyon yazdım
+      const collatzLength = (x) => {
+        let lengthValue = 1;
+        for (let i = 0; x !== 1; i++) {
+          if (x % 2 === 0) {
+            x = x / 2;
+          } else {
+            x = 3 * x + 1;
+          }
+          lengthValue++;
+        }
+
+        return lengthValue;
+      };
+
+      // buradada 1 milyondan küçük olan en uzun zinciri ve bulmaya çalışıyorum
+      for (let i = 1; i < 1000000; i++) {
+        const currentLength = collatzLength(i);
+        if (currentLength > longestChain) {
+          longestChain = currentLength;
+          startNumber = i;
+        }
+      }
+
+      console.log("En uzun zinciri bulan sayı:", startNumber);
+      console.log("bulunan zincir uzunluğu:", longestChain);
+    </script>
+  </body>
+</html>
